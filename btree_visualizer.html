@@ -68,7 +68,7 @@ aside h2 { margin: 0; padding: 10px 12px; font-size: 13px; color: var(--muted); 
 
 <div class="controls">
   <label>Values (inserted in this order)
-    <input type="text" id="values" value="10 20 5 6 12 30 7 17 3 25 40 50" spellcheck="false" autocomplete="off">
+    <input type="text" id="values" value="" placeholder="e.g. 10 20 5 6 12 30" spellcheck="false" autocomplete="off">
   </label>
   <label>Order m
     <select id="order"></select>
@@ -98,7 +98,7 @@ aside h2 { margin: 0; padding: 10px 12px; font-size: 13px; color: var(--muted); 
   <div class="stage">
     <svg id="svg" role="img" aria-label="B-Tree drawing"><g id="edges"></g><g id="nodes"></g></svg>
     <div class="msg" id="msg"></div>
-    <div class="empty" id="empty">The tree is empty — enter values and press Build.</div>
+    <div class="empty" id="empty">Enter your values above and press Build &amp; animate to draw the tree.</div>
   </div>
   <aside>
     <h2>Steps of this operation</h2>
@@ -330,10 +330,12 @@ let timer = null;
 
 const speedMs = () => 1800 - Number($("speed").value) * 160;
 
+function showError(t) { $("msg").textContent = t; }
 function parseValues() {
   const toks = $("values").value.split(/[\s,;]+/).filter(Boolean);
+  if (!toks.length) { showError("Enter at least one value first."); return null; }
   const nums = toks.map(Number);
-  if (nums.some((n) => !Number.isFinite(n))) { alert("Please enter numbers only, separated by spaces or commas."); return null; }
+  if (nums.some((n) => !Number.isFinite(n))) { showError("Please enter numbers only, separated by spaces or commas."); return null; }
   return nums;
 }
 
@@ -399,7 +401,7 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === " ") { e.preventDefault(); $("play").click(); }
 });
 
-$("build").click();
+render(null);
 </script>
 </body>
 </html>
