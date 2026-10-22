@@ -1,18 +1,38 @@
-# B-Tree Animation (C++)
+# B-Tree Visualizer
 
-Give a list of **values** and the **order m** of the B-Tree, and watch the tree being built step by step:
-going down the tree, overflow, splitting at the median, and the tree growing taller. You can also search and
-delete keys and watch the borrow and merge steps.
+Give a list of **values** and the **order m** of a B-Tree and watch it being built step by step: going down the tree, overflow, splitting at the median, and the tree growing taller. You can also search and delete keys and watch the borrow and merge steps.
 
-![B-Tree Visualizer](docs/gui-screenshot.png)
+There are three ways to run it. The browser version is the easiest because it needs nothing installed.
 
-| File | What it is |
+## Quick start (browser, no install)
+
+1. Download or clone this repository.
+2. Double-click `btree_visualizer.html` to open it in any modern browser.
+3. In **Values**, type the numbers in the order they should be inserted, separated by spaces or commas, for example `10 20 5 6 12 30 7 17 3 25 40 50`.
+4. Choose the order **m** (3 to 10) in the drop-down.
+5. Press **Build & animate**. The tree starts empty and every value is inserted one step at a time.
+
+### Controls
+
+| Control | What it does |
 |---|---|
-| `btree_visualizer.html` | **Zero-install web visualizer**: open it in any browser, type values, get the animated tree |
-| `btree.h` | The B-Tree algorithm for any order m (insert, search, delete), with a hook for every step |
-| `gui/btree_gui.cpp` | **B-Tree Visualizer**: graphical app (raylib) with smooth animations |
-| `btree_animation.cpp` | Terminal animation using ANSI colours, no libraries needed |
-| `tests/test_btree.cpp` | Randomised test: orders 3–10, checks every B-Tree rule after each operation |
+| **Build & animate** | Start from an empty tree and insert every value (Enter in the Values box does the same) |
+| **Insert** / **Delete** | Insert or delete the values in the box on the current tree |
+| **Search** | Search the first value in the box and show the path taken |
+| **Clear** | Empty the tree |
+| ⏮ ◀ ▶ ⏭ | First, previous, next and last step |
+| **Play / Pause** | Auto-play the steps; the **Speed** slider sets the pace |
+| Steps list | Click any step on the right to jump to it |
+| Keyboard | `←` / `→` step back and forward, `Space` plays or pauses |
+
+### Reading the picture
+
+- **Yellow**: the node being looked at while descending the tree.
+- **Red**: a node that overflowed (too many keys) or underflowed (too few), or a key being deleted or not found.
+- **Blue**: a newly inserted key or a node created by a split.
+- **Green**: a successful borrow, merge or search.
+
+Changing the order while a tree is shown rebuilds it with the new order.
 
 ### What "order m" means
 
@@ -23,7 +43,17 @@ A B-Tree of order m (Knuth's definition, used in most textbooks):
 
 When a node gets m keys it overflows and splits at the median; the median moves up to the parent.
 
-## Graphical visualizer
+## Files
+
+| File | What it is |
+|---|---|
+| `btree_visualizer.html` | Browser visualizer, a single file with no dependencies |
+| `btree.h` | The B-Tree algorithm for any order m (insert, search, delete), with a hook for every step |
+| `gui/btree_gui.cpp` | Desktop app built with raylib, with smooth animations |
+| `btree_animation.cpp` | Terminal animation using ANSI colours, no libraries needed |
+| `tests/test_btree.cpp` | Randomised test: orders 3 to 10, checks every B-Tree rule after each operation |
+
+## Desktop app (C++ and raylib)
 
 ```bash
 cmake -B build
