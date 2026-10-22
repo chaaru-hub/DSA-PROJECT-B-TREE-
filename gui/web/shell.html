@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B-Tree Visualizer</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #0b1020; overflow: hidden; }
+  canvas { display: block; outline: none; }
+  #loading { position: fixed; inset: 0; display: grid; place-items: center; color: #8b97b0;
+             font: 16px system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<div id="loading">Loading B-Tree Visualizer…</div>
+<canvas id="canvas" tabindex="0" oncontextmenu="event.preventDefault()"></canvas>
+<script>
+  var Module = {
+    canvas: document.getElementById('canvas'),
+    onRuntimeInitialized: function () {
+      document.getElementById('loading').remove();
+      Module.canvas.focus();
+    }
+  };
+</script>
+{{{ SCRIPT }}}
+</body>
+</html>
