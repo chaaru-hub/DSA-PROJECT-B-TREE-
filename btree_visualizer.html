@@ -208,6 +208,7 @@ class BTree {
       this.snap(`Removed ${k} from the leaf`, [leaf.id], "hl");
     }
     this.rebalance(path, leaf);
+    if (this.root) this.snap(`Deleted ${k} — this is the rebalanced tree`, [], "good");
   }
 
   rebalance(path, cur) {
@@ -381,7 +382,13 @@ function run(fn, { reset = false } = {}) {
 /* ---------- Wire up ---------- */
 for (let m = 3; m <= 10; m++) $("order").add(new Option(m, m, false, m === 4));
 
-$("build").onclick = () => { const v = parseValues(); if (v) run(() => v.forEach((k) => tree.insert(k)), { reset: true }); };
+$("build").onclick = () => {
+  const v = parseValues();
+  if (!v) return;
+  run(() => v.forEach((k) => tree.insert(k)), { reset: true });
+  $("values").value = "";
+  $("values").placeholder = "Value to insert, delete or search";
+};
 $("insert").onclick = () => { const v = parseValues(); if (v) run(() => v.forEach((k) => tree.insert(k))); };
 $("delete").onclick = () => { const v = parseValues(); if (v) run(() => v.forEach((k) => tree.delete(k))); };
 $("search").onclick = () => { const v = parseValues(); if (v && v.length) run(() => tree.search(v[0])); };
