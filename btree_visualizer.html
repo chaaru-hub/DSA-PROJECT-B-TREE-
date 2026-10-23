@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>B-Tree Visualizer</title>
 <style>
 :root {
@@ -10,6 +11,10 @@
   --accent: #2f6fed; --node: #ffffff; --node-line: #5b6b86; --key: #1c2330;
   --edge: #9aa5b8; --hl: #ffe9a8; --hl-line: #e0a100; --bad: #ffd5d5; --bad-line: #d33;
   --good: #cdf3d8; --good-line: #1f9d4c; --new: #d7e6ff; --new-line: #2f6fed;
+  /* tree nodes keep light boxes with dark text in every theme so the keys stay readable */
+  --n-fill: #f3f6fb; --n-ink: #1c2330; --n-line: #5b6b86;
+  --n-hl: #ffe9a8; --n-hl-line: #c98a00; --n-bad: #ffd5d5; --n-bad-line: #d33;
+  --n-good: #cdf3d8; --n-good-line: #1f9d4c; --n-new: #d7e6ff; --n-new-line: #2f6fed;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -48,13 +53,13 @@ aside h2 { margin: 0; padding: 10px 12px; font-size: 13px; color: var(--muted); 
 #steps li.on { background: var(--hl); }
 .player { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 0 20px 10px; }
 .player input[type=range] { width: 120px; }
-.node rect { fill: var(--node); stroke: var(--node-line); stroke-width: 1.5; transition: fill .3s, stroke .3s; }
-.node.hl rect { fill: var(--hl); stroke: var(--hl-line); stroke-width: 2.5; }
-.node.bad rect { fill: var(--bad); stroke: var(--bad-line); stroke-width: 2.5; }
-.node.good rect { fill: var(--good); stroke: var(--good-line); stroke-width: 2.5; }
-.node.new rect { fill: var(--new); stroke: var(--new-line); stroke-width: 2.5; }
-.node text { fill: var(--key); font: 600 15px ui-monospace, Menlo, Consolas, monospace; text-anchor: middle; dominant-baseline: central; }
-.node line.sep { stroke: var(--node-line); stroke-width: 1; opacity: .5; }
+.node rect { fill: var(--n-fill); stroke: var(--n-line); stroke-width: 1.5; transition: fill .3s, stroke .3s; }
+.node.hl rect { fill: var(--n-hl); stroke: var(--n-hl-line); stroke-width: 2.5; }
+.node.bad rect { fill: var(--n-bad); stroke: var(--n-bad-line); stroke-width: 2.5; }
+.node.good rect { fill: var(--n-good); stroke: var(--n-good-line); stroke-width: 2.5; }
+.node.new rect { fill: var(--n-new); stroke: var(--n-new-line); stroke-width: 2.5; }
+.node text { fill: var(--n-ink); font: 600 15px ui-monospace, Menlo, Consolas, monospace; text-anchor: middle; dominant-baseline: central; }
+.node line.sep { stroke: var(--n-line); stroke-width: 1; opacity: .5; }
 .node { transition: transform .5s ease, opacity .3s; }
 .node.gone { opacity: 0; }
 .edge { stroke: var(--edge); stroke-width: 1.5; fill: none; }
